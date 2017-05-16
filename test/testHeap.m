@@ -9,46 +9,6 @@
 
 #define NSPrintf(...)	printf( "%s", [[NSString stringWithFormat: __VA_ARGS__] UTF8String] )
 
-int get_next_integer_from_stream( FILE *ifp ) {
-	int	val = 0;
-#if 1
-	while( fscanf( ifp, "%d", &val ) == 0 ) {
-		if( fscanf( ifp, "%*s" ) == EOF ) {
-			fprintf( stderr, "No integer found before EOF\n" );
-			return 0;
-		}
-	}
-	return val;
-#else
-	int	ch;
-	while( !feof(ifp) ) {
-		while( (ch = fgetc( ifp )) != EOF && isspace(ch) );
-		if( isdigit(ch) ) {
-			val = ch - '0';
-			while( (ch = fgetc(ifp)) != EOF && isdigit(ch) ) {
-				val = 10 * val + ch - '0';
-			}
-			return val;
-		}
-		while( (ch = fgetc( ifp )) != EOF && !isspace(ch) );
-	}
-	return val;
-#endif
-}
-
-double get_next_double_from_stream( FILE *ifp ) {
-	double	val = 0;
-	while( fscanf( ifp, "%lf", &val ) == 0 ) {
-		if( fgetc( ifp ) == '$' && fscanf( ifp, "%lf", &val ) == 1 )
-			break;
-		else if( fscanf( ifp, "%*s" ) == EOF ) {
-			fprintf( stderr, "No float found before EOF\n" );
-			return NAN;
-		}
-	}
-	return val;
-}
-
 int myMain();
 int main() {
 	@autoreleasepool {
