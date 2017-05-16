@@ -1,16 +1,13 @@
-all:	BinaryHeap campaign FibonacciHeap
+all:	BinaryHeap FibonacciHeap campaign
 
 BinaryHeap:	testBin.m testHeap.m ../Heap.m ../Heap.h ../BinaryHeap.m ../BinaryHeap.h
 	clang -Wall -pedantic -framework Foundation testBin.m ../Heap.m ../BinaryHeap.m -o $@
 
-# testBin.o:	testBin.m testHeap.m ../Heap.m ../Heap.h
-#	clang -c -o $@ testBin.m
-
 FibonacciHeap:	testFib.m testHeap.m ../Heap.m ../Heap.h ../FibonacciHeap.m ../FibonacciHeap.h
 	clang -Wall -framework Foundation testFib.m ../Heap.m ../FibonacciHeap.m -o $@
 
-#testFib.o:	testFib.m testHeap.m ../Heap.m ../Heap.h ../FibonacciHeap.m ../FibonacciHeap.h
-#	clang -c -o $@ testFib.m
+clean:
+	rm -f BinaryHeap FibonacciHeap campaign x y
 
 campaign:	campaign.m ../Heap.m ../Heap.h \
 		../BinaryHeap.m ../BinaryHeap.h \
