@@ -30,6 +30,21 @@ mutable only its top element would every be accessible.
 
 ### Version 1.00.00
 
+# Installation and Usage
+Copy both [Heap.h][] and [Heap.m][] files to your project as well as the interface and implementation files for the specific type or types of heap you intend to use ([BinaryHeap.h][], [BinaryHeap.m][], [FibonacciHeap.h][] and/or [FibonacciHeap.m][]). Usage is simple, delare your heap and use it.
+
+```objective-c
+BinaryHeap *heap1 = [BinaryHeap maxHeap];
+[heap1 push: @1];
+[heap1 push: @5];
+[heap1 push: @2];
+NSLog( @"The top of the heap is %@\n", heap1.top );
+// Will output:
+//   The top of the heap is 5
+```
+
+Should be compatible with iOS or Mac OS X.
+
 # Methods
 
 ## Traditional heap interface methods:
@@ -180,7 +195,7 @@ Within your subclass you should use `- (NSComparisonResult) heapCompareNode:
 For example, here is the internal bubble up code from the BinaryHeap
 implementation.
 
-```
+```objective-c
 - (void) bubbleUpFromIndex: (NSUInteger) i {
 	NSUInteger p = parentOf(i);
 	while( i > 0 && [self heapCompareNode: _objects[i] toNode: _objects[p]] == NSOrderedDescending) {
@@ -201,21 +216,6 @@ copy of test/testFib.m or test/testBin.m, modify it to import your
 header file, and define your class name as HEAP_TYPE.
 Compile and run. No output means no errors identified.
 (Sorry about the un-elegant testing, it was just what I had on the fly)
-
-# Installation and Usage
-Copy both [Heap.h][] and [Heap.m][] files to your project as well as the interface and implementation files for the specific type or types of heap you intend to use ([BinaryHeap.h][], [BinaryHeap.m][], [FibonacciHeap.h][] and/or [FibonacciHeap.m][]). Usage is simple, delare your heap and use it.
-
-```objective-c
-BinaryHeap *heap1 = [BinaryHeap maxHeap];
-[heap1 push: @1];
-[heap1 push: @5];
-[heap1 push: @2];
-NSLog( @"The top of the heap is %@\n", heap1.top );
-// Will output:
-//   The top of the heap is 5
-```
-
-Should be compatible with iOS or Mac OS X.
 
 # License
 The MIT License (MIT)
