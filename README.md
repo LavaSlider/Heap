@@ -11,13 +11,21 @@ as well as a more Apple-like interface including synonyms addObject, removeTopOb
 Heaps can be declared as minimum heaps (top object is always the minimum)
 or maximum heaps (top object is always the maximum).
 A heap without explicit minimum or maximum will be the default for the
-heap subclass type. In general these will be maximum heaps.
+heap subclass type; in general these will be maximum heaps.
 
 Heaps can also be declared providing a comparator that defines relationships
 between stored objects or with an NSSortDescriptor to define order.
 
+The objects stored in the heap must implement
+`- (NSComparisonResult) compare: (MyClass *) otherObject;` if
+if no comparator or sort descriptor is supplied.
+They must also implement `- (BOOL) isEqual: (id) otherObject;`
+although this is only really needed if methods that need
+to identify objects are used such as `containsObject:`, `removeObject:`,
+and `replaceObject:withObject:`.
+
 All heaps are mutable and therefore not thread safe.
-This seemed appropriate since there is no random access to a heap if it was not
+This seemed appropriate since there is no random access to a heap, if it was not
 mutable only its top element would every be accessible.
 
 ### Version 1.00.00
@@ -43,17 +51,17 @@ mutable only its top element would every be accessible.
 
 ## Additional / expanded interface methods:
 <dl>
-<dt>- (void) removeObject: (id) object;</dt>
+<dt>- (void) addObjectsFromArray: (NSArray *) array;</dt>
+<dt>- (void) setObjectsFromArray: (NSArray *) array;</dt>
+<dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
+<dt>- (void) replaceObject: (id) object withObject: (id) newObject;</dt>
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
+<dt>- (void) removeObject: (id) object;</dt>
+<dt>- (void) removeAllObjects;</dt>
 <dt>- (BOOL) isEqualToHeap: (Heap *) heap;</dt>
 
 <dt>- (NSArray *) allObjects;</dt>
 
-<dt>- (void) setObjectsFromArray: (NSArray *) array;</dt>
-<dt>- (void) addObjectsFromArray: (NSArray *) array;</dt>
-<dt>- (void) removeAllObjects;</dt>
-<dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
-<dt>- (void) replaceObject: (id) object withObject: (id) newObject;</dt>
 </dl>
 
 ## Heap Creation
@@ -119,7 +127,7 @@ mutable only its top element would every be accessible.
 <dt>+ (instancetype) heapWithSortDescriptor: (NSSortDescriptor *) sd andObjects: (const ObjectType *) objects count: (NSUInteger) cnt;</dt>
 </dl>
 
-# Subclasses
+# Existing Subclasses
 
 ## BinaryHeap
 The binary heap subclass uses an NSMutableArray as its storage mechanism.
@@ -147,8 +155,52 @@ Much of the code was derived from examples on the Growing with the Web
 
 # Subclassing
 
-Subclasses of Heap are required to declare and manage the storage of the heap objects and implement the minimum subset of methods described below. They can also define additional methods as appropriate.
-The 
+Heaps is implemented as a Class Cluster.
+The Heap class itself is an abstract super class with no storage.
+By default, size, pop, and top return nil or zero,
+empty returns YES, containsObject: returns NO,
+removeObject: does nothing, and push throws an exception.
+
+Subclasses of Heap are required to declare and manage the storage
+of the heap objects and implement the minimum subset of methods
+described below. They can also define additional methods as appropriate.
+
+Methods that must be overridden in all subclasses include:
+<dl>
+<dt>- (void) push: (ObjectType) object;</dt>
+<dt>- (ObjectType) pop;</dt>
+<dt>- (ObjectType) top;</dt>
+<dt>- (NSUInteger) size;</dt>
+<dt>- (void) removeObject: (id) object;</dt>
+<dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
+</dl>
+
+Within your subclass you should use `- (NSComparisonResult) heapCompareNode:
+(const id) lhs toNode: (const id) rhs` for all object comparisons.
+For example, here is the internal bubble up code from the BinaryHeap
+implementation.
+
+```
+- (void) bubbleUpFromIndex: (NSUInteger) i {
+	NSUInteger p = parentOf(i);
+	while( i > 0 && [self heapCompareNode: _objects[i] toNode: _objects[p]] == NSOrderedDescending) {
+		ObjectType t = _objects[p];
+		_objects[p] = _objects[i];
+		_objects[i] = t;
+		i = p;
+		p = parentOf(i);
+	}
+}
+```
+
+This will make your implementation work with the built in comparators,
+user specified comparators or sort descriptors.
+
+Testing is also implemented. If you create a new heap type subclass, make a
+copy of test/testFib.m or test/testBin.m, modify it to import your
+header file, and define your class name as HEAP_TYPE.
+Compile and run. No output means no errors identified.
+(Sorry about the un-elegant testing, it was just what I had on the fly)
 
 # Installation and Usage
 Copy both [Heap.h][] and [Heap.m][] files to your project as well as the interface and implementation files for the specific type or types of heap you intend to use ([BinaryHeap.h][], [BinaryHeap.m][], [FibonacciHeap.h][] and/or [FibonacciHeap.m][]). Usage is simple, delare your heap and use it.
