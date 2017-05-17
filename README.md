@@ -90,10 +90,10 @@ Should be compatible with iOS or Mac OS X.
    <dd>Replaces the content of the heap with the objects
    from the <em>array</em>.
    This is functionally equivalent to:
-```objective-c
-[heap removeAllObjects];
-[heap addObjectsFromArray: array];
-```
+<div><code>
+[heap removeAllObjects];<br>
+[heap addObjectsFromArray: array];<br>
+</code></div>
    however subclasses may override this if there are more
    efficient ways to do it.</dd>
 <dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
