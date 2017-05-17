@@ -73,10 +73,17 @@ Should be compatible with iOS or Mac OS X.
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
 <dt>- (void) removeObject: (id) object;</dt>
 <dt>- (void) removeAllObjects;</dt>
-<dt>- (BOOL) isEqualToHeap: (Heap *) heap;</dt>
-
 <dt>- (NSArray *) allObjects;</dt>
-
+<dd>Returns an array containing all the objects in the heap.
+No specific order is guaranteed.</dd>
+<dt>- (BOOL) isEqualToHeap: (Heap *) heap;</dt>
+<dd>Two heaps are considered equal if
+they contain the same number of objects,
+their top objects are equal
+and every object is contained in the other heap.
+Therefore a BinaryHeap can be equal to a FibonacciHeap.
+Also an empty minimum heap will be equal to an
+empty maximum heap.</dd>
 </dl>
 
 ## Heap Creation
@@ -188,6 +195,7 @@ Methods that must be overridden in all subclasses include:
 <dt>- (NSUInteger) size;</dt>
 <dt>- (void) removeObject: (id) object;</dt>
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
+<dt>- (BOOL) isEqualToHeap: (Heap *) otherHeap;</dt>
 </dl>
 
 Within your subclass you should use `- (NSComparisonResult) heapCompareNode:
