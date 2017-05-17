@@ -339,6 +339,7 @@ testRecord beatAnEmptyHeap( Heap *h1, BOOL isMax ) {
 	[h1 push: @1];
 	if( h1.size != 1 ) NSPrintf( @"***** error pushed one item on heap, its size is should be 1 not %lu\n", h1.size );
 	if( [h1 containsObject: @3] ) NSPrintf( @"***** error: contains returns YES for entry not in heap\n" );
+	if( [h1 containsObject: nil] ) NSPrintf( @"***** error: contains nil returns YES for heap with size 1\n" );
 	if( ![h1 containsObject: @1] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( [[h1 top] intValue] != 1 ) NSPrintf( @"***** error top of heap should be 1 not %d\n", [h1.top intValue] );
 	[h1 removeObject: @99];	// Make sure it doesn't crash non-existent object from empty heap...
@@ -360,6 +361,7 @@ testRecord beatAnEmptyHeap( Heap *h1, BOOL isMax ) {
 	[h1 push: @2];
 	if( h1.size != 2 ) NSPrintf( @"***** error pushed second item on heap, its size is should be 2 not %lu\n", h1.size );
 	if( [h1 containsObject: @3] ) NSPrintf( @"***** error: contains returns YES for entry not in heap\n" );
+	if( [h1 containsObject: nil] ) NSPrintf( @"***** error: contains nil returns YES for heap with size 2\n" );
 	if( ![h1 containsObject: @1] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h1 containsObject: @2] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	[h1 removeObject: @99];	// Make sure it doesn't crash removing non-existent object...
@@ -405,6 +407,7 @@ testRecord beatAnEmptyHeap( Heap *h1, BOOL isMax ) {
 		NSPrintf( @"***** error [heap push: nil] threw exception (%@)\n", exception );
 	}
 	if( [h1 containsObject: @3] ) NSPrintf( @"***** error: contains returns YES for entry not in heap\n" );
+	if( [h1 containsObject: nil] ) NSPrintf( @"***** error: contains nil returns YES for heap with size 7\n" );
 	if( ![h1 containsObject: @1] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h1 containsObject: @2] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h1 containsObject: @-2] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
@@ -431,6 +434,7 @@ testRecord beatAnEmptyHeap( Heap *h1, BOOL isMax ) {
 		NSPrintf( @"***** error [heap addObject: nil] threw exception (%@)\n", exception );
 	}
 	if( [h1 containsObject: @3] ) NSPrintf( @"***** error: contains returns YES for entry not in heap\n" );
+	if( [h1 containsObject: nil] ) NSPrintf( @"***** error: contains nil returns YES for heap with size 7\n" );
 	if( ![h1 containsObject: @1] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h1 containsObject: @2] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h1 containsObject: @-2] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
