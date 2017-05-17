@@ -82,8 +82,8 @@ they contain the same number of objects,
 their top objects are equal
 and every object is contained in the other heap.
 Therefore a BinaryHeap can be equal to a FibonacciHeap.
-Also an empty _minimum_ heap will be equal to an
-empty _maximum_ heap.</dd>
+Also an empty <em>minimum</em> heap will be equal to an
+empty <em>maximum</em> heap.</dd>
 </dl>
 
 ## Heap Creation
