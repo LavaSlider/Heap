@@ -16,8 +16,8 @@ or maximum heaps (top object is always the maximum).
 A heap without explicit minimum or maximum will be the default for the
 heap subclass type; in general these will be maximum heaps.
 
-Heaps can also be declared providing a comparator that defines relationships
-between stored objects or with an NSSortDescriptor to define order.
+Heaps can also be declared providing an [NSComparator] that defines relationships
+between stored objects or with an [NSSortDescriptor] to define order.
 
 The objects stored in the heap must implement
 `- (NSComparisonResult) compare: (MyClass *) otherObject;` if
@@ -28,13 +28,17 @@ to identify objects are used such as `containsObject:`, `removeObject:`,
 and `replaceObject:withObject:`.
 
 All heaps are mutable and therefore not thread safe.
-This seemed appropriate since there is no random access to a heap, if it was not
-mutable only its top element would every be accessible.
+This seemed appropriate since there is no random access to a heap,
+if it was not mutable only its top element would every be accessible.
 
 ### Version 1.00.00
 
 # Installation and Usage
-Copy both [Heap.h][] and [Heap.m][] files to your project as well as the interface and implementation files for the specific type or types of heap you intend to use ([BinaryHeap.h][], [BinaryHeap.m][], [FibonacciHeap.h][] and/or [FibonacciHeap.m][]). Usage is simple, delare your heap and use it.
+Copy both [Heap.h][] and [Heap.m][] files to your project as well as the
+interface and implementation files for the specific type or types of heap
+you intend to use ([BinaryHeap.h][] and [BinaryHeap.m][],
+and/or [FibonacciHeap.h][] and [FibonacciHeap.m][]).
+Usage is simple, delare your heap and use it.
 
 ```objective-c
 BinaryHeap *heap1 = [BinaryHeap maxHeap];
@@ -245,9 +249,9 @@ Much of the code was derived from examples on the Growing with the Web
 
 Heaps is implemented as a Class Cluster.
 The Heap class itself is an abstract super class with no storage.
-By default, size, pop, and top return nil or zero,
-empty returns YES, containsObject: returns NO,
-removeObject: does nothing, and push throws an exception.
+By default, `size`, `pop`, and `top` return **nil** or **zero**,
+`empty` returns **YES**, `containsObject:` returns **NO**,
+`removeObject:` does nothing, and `push:` throws an exception.
 
 Subclasses of Heap are required to declare and manage the storage
 of the heap objects and implement the minimum subset of methods
@@ -330,7 +334,7 @@ Testing is also implemented. If you create a new heap type subclass, make a
 copy of [test/testFib.m][] or [test/testBin.m][], modify it to import your
 header file, and define your class name as **HEAP_TYPE**.
 Compile and run. No output means no errors identified.
-(Sorry about the un-elegant testing, it was just what I had on the fly)
+(Sorry about the inelegant testing, it was just what I had on the fly)
 
 # License
 The MIT License (MIT)
@@ -351,3 +355,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [FibonacciHeap.h]: FibonacciHeap.h
 [FibonacciHeap.m]: FibonacciHeap.m
 
+[NSSortDescriptor]: https://developer.apple.com/reference/foundation/nssortdescriptor?language=objc
+[NSComparator]: https://developer.apple.com/reference/foundation/nscomparator
+[NSComparisonResult]: https://developer.apple.com/reference/foundation/nscomparisonresult?language=objc
