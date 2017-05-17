@@ -1136,25 +1136,25 @@ int myMain() {
 	if( ![h2 containsObject: @98] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( ![h2 containsObject: @200] ) NSPrintf( @"***** error: contains returns NO for entry in heap\n" );
 	if( [[h2 pop] intValue] != -5 )
-		NSPrintf( @"***** error: expected stack top of -5 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of -5 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 4 )
-		NSPrintf( @"***** error: expected stack top of 4 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 4 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 47 )
-		NSPrintf( @"***** error: expected stack top of 47 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 47 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 54 )
-		NSPrintf( @"***** error: expected stack top of 54 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 54 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 80 )
-		NSPrintf( @"***** error: expected stack top of 80 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 80 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 98 )
-		NSPrintf( @"***** error: expected stack top of 98 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 98 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 98 )
-		NSPrintf( @"***** error: expected stack top of 98 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 98 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 100 )
-		NSPrintf( @"***** error: expected stack top of 100 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 100 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 150 )
-		NSPrintf( @"***** error: expected stack top of 150 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 150 on h2 after set array\n" );
 	if( [[h2 pop] intValue] != 200 )
-		NSPrintf( @"***** error: expected stack top of 200 on h2 after set array" );
+		NSPrintf( @"***** error: expected stack top of 200 on h2 after set array\n" );
 
 
 	// sd is @"intValue" ascending: YES
@@ -1163,25 +1163,25 @@ int myMain() {
 	if( [h3 count] != 10 )
 		NSPrintf( @"***** error: expected array size of 10 after calling  set array on h3 with (%@)\n", [a1 componentsJoinedByString: @","] );
 	if( [[h3 pop] intValue] !=  -5 )
-		NSPrintf( @"***** error: expected stack top of  -5 on h3" );
+		NSPrintf( @"***** error: expected stack top of  -5 on h3\n" );
 	if( [[h3 pop] intValue] !=  4 )
-		NSPrintf( @"***** error: expected stack top of  4 on h3" );
+		NSPrintf( @"***** error: expected stack top of  4 on h3\n" );
 	if( [[h3 pop] intValue] !=  47 )
-		NSPrintf( @"***** error: expected stack top of  47 on h3" );
+		NSPrintf( @"***** error: expected stack top of  47 on h3\n" );
 	if( [[h3 pop] intValue] !=  54 )
-		NSPrintf( @"***** error: expected stack top of  54 on h3" );
+		NSPrintf( @"***** error: expected stack top of  54 on h3\n" );
 	if( [[h3 pop] intValue] !=  80 )
-		NSPrintf( @"***** error: expected stack top of  80 on h3" );
+		NSPrintf( @"***** error: expected stack top of  80 on h3\n" );
 	if( [[h3 pop] intValue] !=  98 )
-		NSPrintf( @"***** error: expected stack top of  98 on h3" );
+		NSPrintf( @"***** error: expected stack top of  98 on h3\n" );
 	if( [[h3 pop] intValue] !=  98 )
-		NSPrintf( @"***** error: expected stack top of  98 on h3" );
+		NSPrintf( @"***** error: expected stack top of  98 on h3\n" );
 	if( [[h3 pop] intValue] !=  100 )
-		NSPrintf( @"***** error: expected stack top of  100 on h3" );
+		NSPrintf( @"***** error: expected stack top of  100 on h3\n" );
 	if( [[h3 pop] intValue] !=  150 )
-		NSPrintf( @"***** error: expected stack top of  150 on h3" );
+		NSPrintf( @"***** error: expected stack top of  150 on h3\n" );
 	if( [[h3 pop] intValue] !=  200 )
-		NSPrintf( @"***** error: expected stack top of  200 on h3" );
+		NSPrintf( @"***** error: expected stack top of  200 on h3\n" );
 
 
 	NSArray *a = [NSArray arrayWithObjects: @100, @80, @200, @150, nil];
