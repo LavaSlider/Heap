@@ -75,6 +75,7 @@ Should be compatible with iOS or Mac OS X.
 <dt>- (void) removeAllObjects;</dt>
 <dt>- (NSArray *) allObjects;</dt>
 <dd>Returns an array containing all the objects in the heap.
+It the heap is empty then an empty array is returned.
 No specific order is guaranteed.</dd>
 <dt>- (BOOL) isEqualToHeap: (Heap *) heap;</dt>
 <dd>Two heaps are considered equal if
