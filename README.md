@@ -48,7 +48,7 @@ NSLog( @"The top of the heap is %@\n", heap1.top );
 
 Should be compatible with iOS or Mac OS X.
 
-# Methods
+# Heap Methods
 
 ## Traditional heap interface methods:
 <dl>
@@ -90,29 +90,66 @@ Should be compatible with iOS or Mac OS X.
    <dd>Replaces the content of the heap with the objects
    from the <em>array</em>.
    This is functionally equivalent to:
-<div><code>
-[heap removeAllObjects];<br>
-[heap addObjectsFromArray: array];<br>
-</code></div>
-   however subclasses may override this if there are more
-   efficient ways to do it.</dd>
+   <div><code>
+      [heap removeAllObjects];<br>
+      [heap addObjectsFromArray: array];
+   </code></div>
+   however subclasses may override this if there is a more
+   efficient way to do it.</dd>
 <dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
+   <dd>Replaces the top object on the heap with the object.
+   This is functionally equivalent to:
+   <div><code>
+      [heap pop];<br>
+      [heap push: anObject];
+   </code></div>
+   however subclasses may override this if there is a more
+   efficient way to do it.
+   If <em>anObject</em> is <strong>nil</strong> then the
+   top object is removed.</dd>
 <dt>- (void) replaceObject: (id) object withObject: (id) newObject;</dt>
+   <dd>Replaces the <em>object</em> in the heap with the <em>newObject</em>.
+   This is functionally equivalent to:
+   <div><code>
+      [heap removeObject: object];<br>
+      [heap push: newObject];
+   </code></div>
+   however subclasses may override this if there is a more
+   efficient way to do it.
+   If <em>object</em> is <strong>nil</strong> then nothing is
+   removed.
+   If <em>newObject</em> is <strong>nil</strong> then nothing
+   is added.</dd>
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
+   <dd>Returns <strong>YES</strong> if any object in the
+   heap returns <strong>YES</strong> to
+   <code>isEqual: anObject</code>.
+   If <em>anObject</em> is <strong>nil</strong> the
+   return value will always be <strong>NO</strong></dd>
 <dt>- (void) removeObject: (id) object;</dt>
+   <dd>Removes the <em>object</em> from the heap.
+   If <em>object</em> is <strong>nil</strong> nothing
+   is changed.</dd>
 <dt>- (void) removeAllObjects;</dt>
+   <dd>Removes all objects from the heap. This is functionally
+   equivalent to:
+   <div><code>
+      while( [heap pop] );<br>
+   </code></div>
+   however subclasses may override this if there is a more
+   efficient way to do it.</dd>
 <dt>- (NSArray *) allObjects;</dt>
-<dd>Returns an array containing all the objects in the heap.
-It the heap is empty then an empty array is returned.
-No specific order is guaranteed.</dd>
+   <dd>Returns an array containing all the objects in the heap.
+   It the heap is empty then an empty array is returned.
+   No specific order is guaranteed.</dd>
 <dt>- (BOOL) isEqualToHeap: (Heap *) heap;</dt>
-<dd>Two heaps are considered equal if
-they contain the same number of objects,
-their top objects are equal
-and every object is contained in the other heap.
-Therefore a BinaryHeap can be equal to a FibonacciHeap.
-Also an empty <em>minimum</em> heap will be equal to an
-empty <em>maximum</em> heap.</dd>
+   <dd>Two heaps are considered equal if
+   they contain the same number of objects,
+   their top objects are equal
+   and every object is contained in the other heap.
+   Therefore a BinaryHeap can be equal to a FibonacciHeap.
+   Also an empty <em>minimum</em> heap will be equal to an
+   empty <em>maximum</em> heap.</dd>
 </dl>
 
 ## Heap Creation
