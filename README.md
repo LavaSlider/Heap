@@ -4,9 +4,12 @@ This defines and declares a Heap abstract base class
 and two concrete subclasses, BinaryHeap and FibonacciHeap.
 Subclassing of the Heap class is possible for other structures.
 
-The base class defines the user interface and the implementations add the storage and manipulation backend.
-The user interface includes the traditional heap interface that includes push, pop, top, size, and empty,
-as well as a more Apple-like interface including synonyms addObject, removeTopObject, topObject, and count.
+The base class defines the user interface and the implementations
+add the storage and manipulation backend.
+The user interface includes the traditional heap interface with
+push, pop, top, size, and empty,
+as well as a more Apple-like interface including synonyms
+addObject, removeTopObject, topObject, and count.
 
 Heaps can be declared as minimum heaps (top object is always the minimum)
 or maximum heaps (top object is always the maximum).
@@ -50,24 +53,49 @@ Should be compatible with iOS or Mac OS X.
 ## Traditional heap interface methods:
 <dl>
 <dt>- (void) push: (ObjectType) object;</dt>
+   <dd>Adds the <em>object</em> to the heap.
+   Pushing a <strong>nil</strong> does nothing.</dd>
 <dt>- (ObjectType) pop;</dt>
+   <dd>Removes and returns the top object from the heap.
+   If the heap is empty returns <strong>nil</strong>.</dd>
 <dt>- (ObjectType) top;</dt>
+   <dd>Returns the top object from the heap.
+   If the heap is empty returns <strong>nil</strong>.</dd>
 <dt>- (NSUInteger) size;</dt>
+   <dd>Returns the number of objects in the heap.</dd>
 <dt>- (BOOL) empty;</dt>
+   <dd>Returns <strong>YES</strong> if the heap's size is zero.</dd>
 </dl>
 
 ## More Apple-like interface methods:
 <dl>
 <dt>- (void) addObject: (ObjectType) object;</dt>
+   <dd>Pushes the <em>object</em> to the heap.
+   Adding a <strong>nil</strong> does nothing.</dd>
 <dt>- (void) removeTopObject;</dt>
+   <dd>Removes the top object from the heap.
+   If the heap is empty returns <strong>nil</strong>.</dd>
 <dt>- (ObjectType) topObject;</dt>
+   <dd>Returns the top object from the heap.
+   If the heap is empty returns <strong>nil</strong>.</dd>
 <dt>- (NSUInteger) count;</dt>
+   <dd>Returns the number of objects in the heap.</dd>
 </dl>
 
 ## Additional / expanded interface methods:
 <dl>
 <dt>- (void) addObjectsFromArray: (NSArray *) array;</dt>
+   <dd>Pushes each object from the <em>array</em> to the heap.</dd>
 <dt>- (void) setObjectsFromArray: (NSArray *) array;</dt>
+   <dd>Replaces the content of the heap with the objects
+   from the <em>array</em>.
+   This is functionally equivalent to:
+```objective-c
+[heap removeAllObjects];
+[heap addObjectsFromArray: array];
+```
+   however subclasses may override this if there are more
+   efficient ways to do it.</dd>
 <dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
 <dt>- (void) replaceObject: (id) object withObject: (id) newObject;</dt>
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
