@@ -220,7 +220,7 @@ Should be compatible with iOS or Mac OS X.
 ## BinaryHeap
 The binary heap subclass uses an NSMutableArray as its storage mechanism.
 It takes no additional space for pointers or other elements for the objects being stored.
-The binary heap is described in detail on it [Wikipedia page](https://en.wikipedia.org/wiki/Binary_heap).
+The binary heap is described in detail on its [Wikipedia page](https://en.wikipedia.org/wiki/Binary_heap).
 Because its backing storage is a mutable array it adds some addtional 
 initializes including:
 
@@ -241,7 +241,7 @@ greater memory usage than with the Binary Heap implementation.
 Much of the code was derived from examples on the Growing with the Web
 [Fibonacci heap](http://www.growingwiththeweb.com/data-structures/fibonacci-heap/overview/) page.
 
-# Subclassing
+# Subclassing Instructions
 
 Heaps is implemented as a Class Cluster.
 The Heap class itself is an abstract super class with no storage.
@@ -256,13 +256,54 @@ described below. They can also define additional methods as appropriate.
 Methods that must be overridden in all subclasses include:
 <dl>
 <dt>- (void) push: (ObjectType) object;</dt>
+   <dd>This should add the <em>object</em> to the heap
+   or do nothing if the <em>object</em> is <strong>nil</strong>.
+   It should not call <code>[super push: object]</code>.</dd>
 <dt>- (ObjectType) pop;</dt>
+   <dd>This should remove and return the top object in the heap
+   or return <strong>nil</strong> if the heap is empty.
+   It should not call <code>[super pop]</code>.</dd>
 <dt>- (ObjectType) top;</dt>
+   <dd>This should return the top object in the heap or
+   <strong>nil</strong> if the heap is empty.
+   It should not call <code>[super top]</code>.</dd>
 <dt>- (NSUInteger) size;</dt>
+   <dd>This should return the number of objects in
+   the heap.
+   It should not call <code>[super size]</code>.</dd>
 <dt>- (void) removeObject: (id) object;</dt>
+   <dd>This should efficiently search through the heap
+   and delete the first object that
+   returns <strong>YES</strong> when passed <em>object</em>
+   to <code>isEqual:</code>. It should gracefully do nothing
+   if <em>object</em> is <strong>nil</strong>.
+   It should not call <code>[super removeObject: object]</code></dd>
 <dt>- (BOOL) containsObject: (ObjectType) anObject;</dt>
+   <dd>This should efficiently search through the heap
+   and return <strong>YES</strong> if any object in the heap
+   returns <strong>YES</strong> when passed <em>anObject</em>
+   to <code>isEqual:</code>. It should gracefully return
+   <strong>nil</strong> if <em>anObject</em> is <strong>nil</strong>.
+   It should not call <code>[super containsObject: object]</code></dd>
 <dt>- (BOOL) isEqualToHeap: (Heap *) otherHeap;</dt>
+   <dd>This should call <code>[super isEqualToHeap: otherHeap]</code>
+   then, if this returns <strong>YES</strong> go through
+   each object in the heap and call
+   <code>[otherHeap contains: object]</code>, returning <strong>NO</strong>
+   if the other heap returns <strong>NO</strong>.</dd>
 </dl>
+
+The subclass must also implement 
+<dl>
+<dt>- (instancetype) init;</dt>
+<dt>- (instancetype) initMax;</dt>
+<dt>- (instancetype) initMin;</dt>
+<dt>- (instancetype) initWithComparator: (NSComparator) comparator;</dt>
+<dt>- (instancetype) initWithSortDescriptor: (NSSortDescriptor *) sd;</dt>
+</dl>
+
+These should each call their **[super]** then initialize the storage
+as needed.
 
 Within your subclass you should use `- (NSComparisonResult) heapCompareNode:
 (const id) lhs toNode: (const id) rhs` for all object comparisons.
@@ -286,8 +327,8 @@ This will make your implementation work with the built in comparators,
 user specified comparators or sort descriptors.
 
 Testing is also implemented. If you create a new heap type subclass, make a
-copy of test/testFib.m or test/testBin.m, modify it to import your
-header file, and define your class name as HEAP_TYPE.
+copy of [test/testFib.m][] or [test/testBin.m][], modify it to import your
+header file, and define your class name as **HEAP_TYPE**.
 Compile and run. No output means no errors identified.
 (Sorry about the un-elegant testing, it was just what I had on the fly)
 
