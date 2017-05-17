@@ -68,11 +68,28 @@
 	return NO;
 }
 
+- (NSUInteger) hash {
+	// What if objects don't respond to hash?
+	return self.size ^ [self.top hash];
+}
+- (BOOL) isEqual: (id) object {
+	// If they are the same pointer then they must be equal
+	if( self == object )
+		return YES;
+	// If the object is not a heap then they cannot be equal
+	if( ![object isKindOfClass: [Heap class]] )
+		return NO;
+	return [self isEqualToHeap: (Heap *) object];
+}
 - (BOOL) isEqualToHeap: (Heap *) heap {
-	[NSException raise: NSInternalInconsistencyException
-		format: @"Required method %@ has not been implemented in %@",
-		NSStringFromSelector(_cmd), NSStringFromClass([self class])];
-	return NO;
+	// If their sizes are different they cannot be equal
+	if( self.size != heap.size )
+		return NO;
+	// If their tops are not equal then they must be different
+	// (could have same content but be minHeap and maxHeap)
+	if( self.top != heap.top && ![self.top isEqual: heap.top] )
+		return NO;
+	return YES;
 }
 
 - (instancetype) init {

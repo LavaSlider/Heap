@@ -208,17 +208,9 @@
 //	}
 //}
 
-- (NSUInteger) hash {
-	// What if objects don't respond to hash?
-	return self.size ^ [self.top hash];
-}
 - (BOOL) isEqualToHeap: (Heap *) heap {
-	// If their sizes are different they cannot be equal
-	if( self.size != heap.size )
-		return NO;
-	// If their tops are not equal then they must be different
-	// (could have same content but be minHeap and maxHeap)
-	if( self.top != heap.top && ![self.top isEqual: heap.top] )
+	// Call the super's isEqualToHeap...
+	if( ![super isEqualToHeap: heap] )
 		return NO;
 	// If any of the objects in self are not in heap then they are not equal
 	if( __rootNode ) {
@@ -244,15 +236,6 @@
 		} while( current != __rootNode );
 	}
 	return YES;
-}
-- (BOOL) isEqual: (id) object {
-	// If they are the same pointer then they must be equal
-	if( self == object )
-		return YES;
-	// If the object is not a heap then they cannot be equal
-	if( ![object isKindOfClass: [Heap class]] )
-		return NO;
-	return [self isEqualToHeap: (Heap *) object];
 }
 //- (void) filterUsingPredicate: (NSPredicate *) predicate;
 - (BOOL) containsObject: (ObjectType) object {
