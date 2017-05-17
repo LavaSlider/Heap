@@ -20,7 +20,7 @@ Heaps can also be declared providing an [NSComparator] that defines relationship
 between stored objects or with an [NSSortDescriptor] to define order.
 
 The objects stored in the heap must implement
-`- (NSComparisonResult) compare: (MyClass *) otherObject;` if
+`- (NSComparisonResult) compare: (MyClass *) otherObject;`
 if no comparator or sort descriptor is supplied.
 They must also implement `- (BOOL) isEqual: (id) otherObject;`
 although this is only really needed if methods that need
@@ -38,14 +38,14 @@ Copy both [Heap.h][] and [Heap.m][] files to your project as well as the
 interface and implementation files for the specific type or types of heap
 you intend to use ([BinaryHeap.h][] and [BinaryHeap.m][],
 and/or [FibonacciHeap.h][] and [FibonacciHeap.m][]).
-Usage is simple, delare your heap and use it.
+Usage is simple, declare your heap and use it.
 
 ```objective-c
-BinaryHeap *heap1 = [BinaryHeap maxHeap];
-[heap1 push: @1];
-[heap1 push: @5];
-[heap1 push: @2];
-NSLog( @"The top of the heap is %@\n", heap1.top );
+BinaryHeap *heap = [BinaryHeap maxHeap];
+[heap push: @1];
+[heap push: @5];
+[heap push: @2];
+NSLog( @"The top of the heap is %@\n", heap.top );
 // Will output:
 //   The top of the heap is 5
 ```
@@ -101,7 +101,8 @@ Should be compatible with iOS or Mac OS X.
    however subclasses may override this if there is a more
    efficient way to do it.</dd>
 <dt>- (void) replaceTopObjectWithObject: (id) anObject;</dt>
-   <dd>Replaces the top object on the heap with the object.
+   <dd>Replaces the top object on the heap with <em>anObject</em>
+   (which, of course, may not longer be the top object).
    This is functionally equivalent to:
    <div><code>
       [heap pop];<br>
