@@ -294,14 +294,18 @@
 
 // ------- //// Internal / Private Methods //// ------  //
 - (void) setObjectsFromObject: (id) firstObj andArgs: (va_list) args {
-	id arg = nil;
-	// Should I count the args first?
-	_objects = [NSMutableArray arrayWithObject: firstObj];
-	while( (arg = va_arg( args, id )) ) {
-		[_objects addObject: arg];
-	}
-	for( NSInteger i = parentOf((NSInteger)_objects.count - 1); i >= 0; --i ) {
-		[self heapifyDownFromIndex: i];
+	if( !firstObj ) {
+		_objects = [NSMutableArray array];
+	} else {
+		id arg = nil;
+		// Should I count the args first?
+		_objects = [NSMutableArray arrayWithObject: firstObj];
+		while( (arg = va_arg( args, id )) ) {
+			[_objects addObject: arg];
+		}
+		for( NSInteger i = parentOf((NSInteger)_objects.count - 1); i >= 0; --i ) {
+			[self heapifyDownFromIndex: i];
+		}
 	}
 }
 - (void) heapifyDownFromIndex: (NSInteger) p {
